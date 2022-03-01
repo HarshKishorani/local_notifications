@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'NotificationService.dart';
 import 'home.dart';
 
@@ -37,10 +36,12 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     NotificationService.init(); //Calling the Init of the Notification service
-    NotificationService.initializeTimeZone();
+    NotificationService.initializeTimeZone();//Initializing timezone in the Notification Service
     listenNotifications();
   }
 
+  /* Listening to the String payload emitted by the BehaviorSubject "onNotifications" in the NotificaionService. 
+  And Navigate to the desired Screen */
   void listenNotifications() {
     NotificationService.onNotifications.stream.listen((payload) {
       Navigator.of(context).push(MaterialPageRoute(
