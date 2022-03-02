@@ -30,7 +30,14 @@ class NotificationService {
         '@mipmap/ic_launcher'); //Important to assign a icon otherwise exception
     const settings = InitializationSettings(android: android);
 
-    await _notifications.initialize(settings, onSelectNotification: ((payload) async {
+    //When app is closed
+    final details = await _notifications.getNotificationAppLaunchDetails();
+    if (details != null && details.didNotificationLaunchApp) {
+      onNotifications.add(details.payload);
+    }
+
+    await _notifications.initialize(settings,
+        onSelectNotification: ((payload) async {
       onNotifications.add(payload);
     }));
   }
@@ -39,7 +46,8 @@ class NotificationService {
   static Future<void> initializeTimeZone() async => tz.initializeTimeZones();
 
   //Show simple notification
-  static Future showNotification({int id = 0, String? title, String? body, String? payload}) async {
+  static Future showNotification(
+      {int id = 0, String? title, String? body, String? payload}) async {
     _notifications.show(
       id,
       title,
@@ -64,6 +72,7 @@ class NotificationService {
         await _notificationDetails(),
         payload: payload,
         androidAllowWhileIdle: true,
-        uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime);
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime);
   }
 }

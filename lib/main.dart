@@ -36,7 +36,8 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     NotificationService.init(); //Calling the Init of the Notification service
-    NotificationService.initializeTimeZone();//Initializing timezone in the Notification Service
+    NotificationService
+        .initializeTimeZone(); //Initializing timezone in the Notification Service
     listenNotifications();
   }
 
@@ -84,14 +85,17 @@ class _MyHomePageState extends State<MyHomePage> {
             OutlineButton(
               onPressed: () {
                 NotificationService.showScheduledNotification(
-                  title : "Scheduled Notification",
-                  body: "Hello, This is Scheduled Notification",
-                  payload: "Scheduled Notification Content",
-                  scheduleTime: DateTime.now().add(const Duration(seconds: 12))
-                );
+                    title: "Scheduled Notification",
+                    body: "Hello, This is Scheduled Notification",
+                    payload: "Scheduled Notification Content",
+                    scheduleTime:
+                        DateTime.now().add(const Duration(seconds: 12)));
 
                 const snackBar = SnackBar(
-                  content: Text("Notification Scheduled in next 12 secs",style: TextStyle(fontSize: 18),),
+                  content: Text(
+                    "Notification Scheduled in next 12 secs",
+                    style: TextStyle(fontSize: 18),
+                  ),
                 );
                 ScaffoldMessenger.of(context)
                   ..removeCurrentSnackBar()
